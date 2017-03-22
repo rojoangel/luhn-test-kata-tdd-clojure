@@ -13,7 +13,11 @@
       n)))
 
 (defn- checksum [digits]
-  (apply + (map sum-digits (map-indexed dup-when-in-even-position (reverse digits)))))
+  (->> digits
+       (reverse)
+       (map-indexed dup-when-in-even-position)
+       (map sum-digits)
+       (apply +)))
 
 (defn valid? [cc]
   (let [digits (cc->digits cc)]
