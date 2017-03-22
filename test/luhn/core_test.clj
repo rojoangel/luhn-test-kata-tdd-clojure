@@ -38,4 +38,6 @@
        (fact "18 passes the test"                           ; introduces reverse for evens
              (valid? "18") => true)
        (fact "59 passes the test"                           ; introduces sum of digits for dupped evens
-             (valid? "59") => true))
+             (valid? "59") => true)
+       (fact "sample number passes the test"
+             (valid? "49927398716") => true))
