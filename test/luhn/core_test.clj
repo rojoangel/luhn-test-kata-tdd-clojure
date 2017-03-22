@@ -40,4 +40,11 @@
        (fact "59 passes the test"                           ; introduces sum of digits for dupped evens
              (valid? "59") => true)
        (fact "sample number passes the test"
-             (valid? "49927398716") => true))
+             (valid? "49927398716") => true)
+       (fact "test cards pass the test"                     ; https://payment-services.ingenico.com/int/en/ogone/support/guides/integration%20guides/split-credit-debit-cards/testing
+             (valid? "5399999999999999") => true
+             (valid? "5101169573112521") => true
+             (valid? "5100867871071536") => true
+             (valid? "4000024329596391") => true
+             (valid? "4000068558002134") => true
+             (valid? "4111111111111111") => true))
