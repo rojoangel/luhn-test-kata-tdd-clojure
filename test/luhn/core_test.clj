@@ -7,8 +7,9 @@
 
 (defn valid? [cc]
   (let [digits (cc->digits cc)
-        odds (take-nth 2 digits)]
-    (if (= 0 (mod (apply + odds) 10))
+        reverse-digits (reverse digits)
+        reverse-odds (take-nth 2 reverse-digits)]
+    (if (= 0 (mod (apply + reverse-odds) 10))
       true
       false)))
 
@@ -22,4 +23,6 @@
        (fact "505 passes the test"                          ; introduces modulus 10
              (valid? "505") => true)
        (fact "92932 passes the test"                        ; introduces sum of odds
-             (valid? "92932") => true))
+             (valid? "92932") => true)
+       (fact "929320 fails the test"                        ; introduces reverse
+             (valid? "929320") => false))
