@@ -8,10 +8,11 @@
 (defn valid? [cc]
   (let [digits (cc->digits cc)
         even-digits (take-nth 2 (rest digits))
-        dupped-evens (map (partial * 2) even-digits)
         reverse-digits (reverse digits)
-        reverse-odds (take-nth 2 reverse-digits)]
-    (if (= 0 (mod (+ (apply + reverse-odds) (apply + dupped-evens)) 10))
+        reverse-odds (take-nth 2 reverse-digits)
+        reverse-evens (take-nth 2 (rest reverse-digits))
+        dupped-reverse-evens (map (partial * 2) reverse-evens)]
+    (if (= 0 (mod (+ (apply + reverse-odds) (apply + dupped-reverse-evens)) 10))
       true
       false)))
 
@@ -29,4 +30,6 @@
        (fact "929320 fails the test"                        ; introduces reverse
              (valid? "929320") => false)
        (fact "018 passes the test"                          ; introduces sum of dupped evens
-             (valid? "018") => true))
+             (valid? "018") => true)
+       (fact "18 passes the test"                           ; introduces reverse for evens
+             (valid? "18") => true))
