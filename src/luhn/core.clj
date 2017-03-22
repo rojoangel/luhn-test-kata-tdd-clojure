@@ -6,14 +6,15 @@
 (defn- sum-digits [n]
   (apply + (map #(read-string (str %)) (str n))))
 
+(defn- dup-when-in-even-position [idx n]
+  (let [pos (inc idx)]
+    (if (even? pos)
+      (* 2 n)
+      n)))
+
+(defn- checksum [digits]
+  (apply + (map sum-digits (map-indexed dup-when-in-even-position (reverse digits)))))
+
 (defn valid? [cc]
-  (let [digits (cc->digits cc)
-        even-digits (take-nth 2 (rest digits))
-        reverse-digits (reverse digits)
-        reverse-odds (take-nth 2 reverse-digits)
-        reverse-evens (take-nth 2 (rest reverse-digits))
-        dupped-reverse-evens (map (partial * 2) reverse-evens)
-        digit-added-dupped-reverse-evens (map sum-digits dupped-reverse-evens)]
-    (if (= 0 (mod (+ (apply + reverse-odds) (apply + digit-added-dupped-reverse-evens)) 10))
-      true
-      false)))
+  (let [digits (cc->digits cc)]
+    (= 0 (mod (checksum digits) 10))))
