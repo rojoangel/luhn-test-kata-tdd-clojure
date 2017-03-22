@@ -7,7 +7,7 @@
 
 (defn valid? [cc]
   (let [digits (cc->digits cc)]
-    (if (= 0 (apply + digits))
+    (if (= 0 (mod (apply + digits) 10))
       true
       false)))
 
@@ -17,4 +17,6 @@
        (fact "1 fails the test"                             ; introduces conditional
              (valid? "1") => false)
        (fact "000 passes the test"                          ; introduces sum
-             (valid? "000") => true))
+             (valid? "000") => true)
+       (fact "505 passes the test"                          ; introduces modulus 10
+             (valid? "505") => true))
