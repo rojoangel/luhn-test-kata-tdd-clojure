@@ -6,8 +6,9 @@
   (map (comp read-string str) cc))
 
 (defn valid? [cc]
-  (let [digits (cc->digits cc)]
-    (if (= 0 (mod (apply + digits) 10))
+  (let [digits (cc->digits cc)
+        odds (take-nth 2 digits)]
+    (if (= 0 (mod (apply + odds) 10))
       true
       false)))
 
@@ -19,4 +20,6 @@
        (fact "000 passes the test"                          ; introduces sum
              (valid? "000") => true)
        (fact "505 passes the test"                          ; introduces modulus 10
-             (valid? "505") => true))
+             (valid? "505") => true)
+       (fact "92932 passes the test"                        ; introduces sum of odds
+             (valid? "92932") => true))
