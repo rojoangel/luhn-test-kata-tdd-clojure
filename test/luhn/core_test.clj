@@ -3,8 +3,12 @@
             [luhn.core :refer :all]))
 
 (defn valid? [cc]
-  true)
+  (if (= "0" cc)
+    true
+    false))
 
 (facts "about luhn check"
        (fact "0 passes the test"
-             (valid? "0") => true))
+             (valid? "0") => true)
+       (fact "1 fails the test"                             ; introduces conditional
+             (valid? "1") => false))
